@@ -19,6 +19,7 @@ public class CustomGeometry : MonoBehaviour {
             {
                 GameObject go = (GameObject)Instantiate(bullet, this.transform.position, Quaternion.identity);
                 go.transform.forward = this.transform.rotation * filter.mesh.vertices[i];
+                go.GetComponent<BulletController>().owner = transform ;
 
             }
         }
@@ -32,7 +33,8 @@ public class CustomGeometry : MonoBehaviour {
 
     public void GenerateMesh(int p_numVerts)
     {
-        
+        filter.mesh = null;
+      
         Vector3[] verts = new Vector3[p_numVerts];
         Vector2[] uvs = new Vector2[p_numVerts];
         int[] tris = new int[(p_numVerts * 3)];
@@ -64,13 +66,21 @@ public class CustomGeometry : MonoBehaviour {
         filter.mesh.vertices = verts;
         filter.mesh.uv = uvs;
         filter.mesh.triangles = tris;
-        collider.mesh = filter.mesh;
+      
       
     }
     void OnCollisionEnter(Collision c)
     {
-        NumVerts++;
-        GenerateMesh(NumVerts);
+        if (c.transform.GetComponent<BulletController>().owner != transform&&c.transform.GetComponent<BulletController>().owner != null)
+        {
+
+            NumVerts--;
+            GenerateMesh(NumVerts);
+            CustomGeometry cg = c.transform.GetComponent<BulletController>().owner.GetComponent<CustomGeometry>();
+            cg.NumVerts++;
+            cg.GenerateMesh(cg.NumVerts);
+            Destroy(c.transform.gameObject);
+        }
 
     }
 	// Use this for initialization
@@ -80,6 +90,7 @@ public class CustomGeometry : MonoBehaviour {
             collider = GetComponent<MeshCollider>();
             filter.mesh = new Mesh();
             GenerateMesh(NumVerts);
+           // collider.sharedMesh = filter.mesh;
             
 	}
 	
