@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
         if (!playerIndexSet || !prevState.IsConnected)
         {
-            for (int i = player; i < player + 1; ++i)
+            for (int i = player - 1; i < player; ++i)
             {
                 PlayerIndex testPlayerIndex = (PlayerIndex)i;
                 GamePadState testState = GamePad.GetState(testPlayerIndex);
