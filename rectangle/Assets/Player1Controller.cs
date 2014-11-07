@@ -17,7 +17,7 @@ public class Player1Controller : MonoBehaviour {
             geom.shoot();
         }
         this.transform.position += new Vector3(Input.GetAxis("LeftStick" + player + "X"), -Input.GetAxis("LeftStick" + player + "Y")) / 20.0f;
-        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(Input.GetAxis("RightStick" + player + "Y"), -Input.GetAxis("RightStick" + player + "X")) * Mathf.Rad2Deg));
+       // this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(Input.GetAxis("RightStick" + player + "Y"), -Input.GetAxis("RightStick" + player + "X")) * Mathf.Rad2Deg));
         // shoot();
         // GenerateMesh(NumVerts);
 	}

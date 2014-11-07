@@ -23,11 +23,7 @@ public class CustomGeometry : MonoBehaviour {
 
             }
         }
-        else
-        {
-
-            Debug.Log(lastshot - Time.time);
-        }
+        
 
     }
 
@@ -44,12 +40,13 @@ public class CustomGeometry : MonoBehaviour {
 
         for (int i = 1; i < p_numVerts; i++)
         {
-            verts[i] = Quaternion.AngleAxis(angle * (float)(i - 1), Vector3.back) * Vector3.up;
+            verts[i] = Quaternion.AngleAxis(angle * (float)(i - 1), Vector3.back) * Vector3.up*(p_numVerts/20.0f);
             float normedHorizontal = (verts[i].x + 1.0f) * 0.5f;
             float normedVertical = (verts[i].y + 1.0f) * 0.5f;
             uvs[i] = new Vector2(normedHorizontal, normedVertical);
 
         }
+        this.GetComponent<CircleCollider2D>().radius = p_numVerts / 20.0f;
         for (int i = 0; i + 2 < p_numVerts; i++)
         {
             int index = i * 3;
@@ -69,8 +66,9 @@ public class CustomGeometry : MonoBehaviour {
       
       
     }
-    void OnCollisionEnter(Collision c)
+    void OnCollisionEnter2D(Collision2D c)
     {
+        if (c.transform.GetComponent<BulletController>()== null) return;
         if (c.transform.GetComponent<BulletController>().owner != transform&&c.transform.GetComponent<BulletController>().owner != null)
         {
 
