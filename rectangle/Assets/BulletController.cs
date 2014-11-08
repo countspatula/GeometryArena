@@ -28,6 +28,8 @@ public class BulletController : MonoBehaviour
                 g.NumVerts--;
                 g.GenerateMesh(g.NumVerts);
             }
+            g.transform.position = g.spawners.transform.GetChild(Random.Range(0, g.spawners.transform.childCount)).position;
+       
             CustomGeometry g2 = owner.GetComponent<CustomGeometry>();
             g2.NumVerts++;
             g2.GenerateMesh(g2.NumVerts);

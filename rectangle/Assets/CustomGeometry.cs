@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CustomGeometry : MonoBehaviour {
 
+    public GameObject spawners;
     public static float S_last_side;
     public static float S_next_side;
     public float ShotCooldown = 0.0f;
@@ -10,7 +11,30 @@ public class CustomGeometry : MonoBehaviour {
     float lastSideSpawn;
     public float lastshot;
 
-    public int NumVerts = 0;
+    public float size = 0.1f;
+    private int numVerts;
+
+    public int NumVerts
+    {
+        get { return numVerts; }
+        set
+        {
+            numVerts = value;
+            if (numVerts < 4)
+            {
+                numVerts = 8;
+                size -= 0.05f;
+            }
+            if (numVerts > 8)
+            {
+                numVerts = 4;
+                size += 0.05f;
+
+            }
+            GenerateMesh(numVerts);
+        }
+    }
+    
     public GameObject bullet;
     public MeshCollider collider;
     public MeshFilter filter;
@@ -41,7 +65,7 @@ public class CustomGeometry : MonoBehaviour {
         verts[0] = Vector3.zero;
         uvs[0] = new Vector2(0.5f, 0.5f);
         float angle = 360.0f / (float)(p_numVerts - 1);
-        float scale = 0.1f;//p_numVerts/20.0f
+        float scale = size;
         for (int i = 1; i < p_numVerts; i++)
         {
             
@@ -78,7 +102,20 @@ public class CustomGeometry : MonoBehaviour {
             Player1Controller p1c = c.gameObject.GetComponent<Player1Controller>();
             if (p1c.State == Player1Controller.PlayerState.Chase)
             {
- 
+                CustomGeometry g = this.GetComponent<CustomGeometry>();
+                if (g != null)
+                {
+                    if (g.NumVerts > 4)
+                    {
+                        g.NumVerts--;
+                       
+                    }
+                    g.transform.position = g.spawners.transform.GetChild(Random.Range(0, g.spawners.transform.childCount)).position;
+
+                    CustomGeometry g2 = c.gameObject.GetComponent<CustomGeometry>();
+                    g2.NumVerts++;
+                  
+                }
             }
         }
         if (c.transform.GetComponent<BulletController>()== null) return;
@@ -86,11 +123,13 @@ public class CustomGeometry : MonoBehaviour {
         {
 
             NumVerts--;
-            GenerateMesh(NumVerts);
+          
             CustomGeometry cg = c.transform.GetComponent<BulletController>().owner.GetComponent<CustomGeometry>();
             cg.NumVerts++;
-            cg.GenerateMesh(cg.NumVerts);
+           
             Destroy(c.transform.gameObject);
+            transform.position = spawners.transform.GetChild(Random.Range(0, spawners.transform.childCount)).position;
+            Debug.Log("FRE");
         }
 
     }
@@ -115,7 +154,7 @@ public class CustomGeometry : MonoBehaviour {
 
             S_next_side = lastSideSpawn;
             NumVerts++;
-            GenerateMesh(NumVerts);
+           
 
         }
 	}

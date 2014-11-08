@@ -11,7 +11,7 @@ public class Player1Controller : MonoBehaviour {
 
     public float PlayerSpeed = 1.0f;
     public float Zrot = 0.0f;
-    public int PickupTimer = 0;
+    public float PickupTimer = 0;
 
     public enum PlayerState { Normal, SpeedBoost, Cannon, Chase };
 
@@ -72,6 +72,7 @@ public class Player1Controller : MonoBehaviour {
     void OnGUI()
     {
         GUI.Box(new Rect(x, y, 200, 300), "Player " + player);
+        GUI.TextField(new Rect(x + 20, y + 100, 100, 20), "Sides" + geom.NumVerts);
     }
 
 
@@ -87,7 +88,7 @@ public class Player1Controller : MonoBehaviour {
     {
         geom.shoot();
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Zrot));
-        Zrot += 5.0f;
+        Zrot += 1.0f;
     }
 
     void ChaseMode()
@@ -98,11 +99,11 @@ public class Player1Controller : MonoBehaviour {
 
     private void CountDown()
     {
-        if (PickupTimer < 1)
+        if (PickupTimer < Time.time)
         {
             ResetStats();
         }
-        PickupTimer--;
+       
     }
 
     void ResetStats()
