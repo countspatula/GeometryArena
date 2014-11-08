@@ -5,6 +5,8 @@ public class CustomGeometry : MonoBehaviour {
 
 
     public float ShotCooldown = 0.0f;
+    public float SideSpawnCooldown = 30;
+     float lastSideSpawn;
     public float lastshot;
     public int NumVerts = 0;
     public GameObject bullet;
@@ -84,6 +86,7 @@ public class CustomGeometry : MonoBehaviour {
 	// Use this for initialization
     	void Start () {
             lastshot = Time.time;
+            lastSideSpawn = Time.time + SideSpawnCooldown;
             filter = GetComponents<MeshFilter>()[0];
             collider = GetComponent<MeshCollider>();
             filter.mesh = new Mesh();
@@ -94,6 +97,12 @@ public class CustomGeometry : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-    
+        if (lastSideSpawn < Time.time)
+        {
+            lastSideSpawn = Time.time+ SideSpawnCooldown;
+            NumVerts++;
+            GenerateMesh(NumVerts);
+
+        }
 	}
 }
