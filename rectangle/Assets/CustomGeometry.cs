@@ -19,7 +19,7 @@ public class CustomGeometry : MonoBehaviour {
             {
                 GameObject go = (GameObject)Instantiate(bullet, this.transform.position, Quaternion.identity);
                 go.transform.forward = this.transform.rotation * filter.mesh.vertices[i];
-                go.GetComponent<BulletController>().owner = transform ;
+                go.GetComponent<BulletController>().owner = transform;
 
             }
         }
