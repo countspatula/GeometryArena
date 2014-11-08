@@ -48,8 +48,11 @@
   <ItemGroup>
      <Compile Include="Assets\BulletController.cs" />
      <Compile Include="Assets\CameraManager.cs" />
+     <Compile Include="Assets\Cannon_Pickup.cs" />
      <Compile Include="Assets\CollisionTest.cs" />
      <Compile Include="Assets\CustomGeometry.cs" />
+     <Compile Include="Assets\GuiController.cs" />
+     <Compile Include="Assets\PickupController.cs" />
      <Compile Include="Assets\Player1Controller.cs" />
      <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\ShapeRenderer.cs" />

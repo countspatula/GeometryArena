@@ -54,6 +54,10 @@ public class Player1Controller : MonoBehaviour {
 
         PickupCheck();
 
+        if (!(State == PlayerState.Normal))
+        {
+            CountDown();
+        }
 
         if (Input.GetAxis("RightTrigger" + player) < -0.001f && (State == PlayerState.Normal))
         {
@@ -74,45 +78,22 @@ public class Player1Controller : MonoBehaviour {
 
 
     void OnCollisionEnter2D(Collision2D c)
-    {
-       
-        if (c.gameObject.tag == "P_SpeedBoost")
-        {
-            PlayerSpeed = 3.0f;
-            geom.ShotCooldown = 0.25f;
-
-            PickupTimer = 50;
-            State = PlayerState.SpeedBoost;
-            GameObject.Destroy(c.gameObject);
-        }
-        if (c.gameObject.tag == "P_Chase")
-        {
-            PickupTimer = 50;
-            State = PlayerState.Chase;
-            GameObject.Destroy(c.gameObject);
-        }
-        
+    {     
 
       
     }
 
     void CannonMode()
     {
-        geom.ShotCooldown = 0.0f;
         geom.shoot();
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Zrot));
         Zrot += 5.0f;
-        CountDown();
     }
 
     void ChaseMode()
     {
-        CountDown();
-    }
-
-    void SpeedMode()
-    {
-        CountDown();
+        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Zrot));
+        Zrot += 5.0f;
     }
 
     private void CountDown()
@@ -136,10 +117,6 @@ public class Player1Controller : MonoBehaviour {
         if (State == PlayerState.Cannon)
         {
             CannonMode();
-        }
-        if (State == PlayerState.SpeedBoost)
-        {
-            SpeedMode();
         }
         if (State == PlayerState.Chase)
         {

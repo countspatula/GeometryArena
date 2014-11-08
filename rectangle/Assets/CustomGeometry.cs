@@ -7,8 +7,9 @@ public class CustomGeometry : MonoBehaviour {
     public static float S_next_side;
     public float ShotCooldown = 0.0f;
     public float SideSpawnCooldown = 3;
-     float lastSideSpawn;
+    float lastSideSpawn;
     public float lastshot;
+
     public int NumVerts = 0;
     public GameObject bullet;
     public MeshCollider collider;
@@ -72,6 +73,14 @@ public class CustomGeometry : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D c)
     {
+        if (c.gameObject.GetComponent<Player1Controller>() != null)
+        {
+            Player1Controller p1c = c.gameObject.GetComponent<Player1Controller>();
+            if (p1c.State == Player1Controller.PlayerState.Chase)
+            {
+ 
+            }
+        }
         if (c.transform.GetComponent<BulletController>()== null) return;
         if (c.transform.GetComponent<BulletController>().owner != transform&&c.transform.GetComponent<BulletController>().owner != null)
         {
