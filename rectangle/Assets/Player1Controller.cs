@@ -3,7 +3,12 @@ using System.Collections;
 
 public class Player1Controller : MonoBehaviour {
     CustomGeometry geom;
+    Renderer mr;
     public int player = 0;
+
+    float x;
+    float y;
+
     public float PlayerSpeed = 1.0f;
     public float Zrot = 0.0f;
     public int PickupTimer = 0;
@@ -13,10 +18,37 @@ public class Player1Controller : MonoBehaviour {
     public PlayerState State = PlayerState.Normal;
 
 	// Use this for initialization
-	void Start () {
+    void Start()
+    {
         geom = GetComponent<CustomGeometry>();
-	}
-	
+        mr = this.renderer;
+
+        switch (player)
+        {
+            case 1:
+                this.renderer.material.color = Color.blue;
+                x = 15;
+                y = 0;
+                break;
+            case 2:
+                this.renderer.material.color = Color.red;
+                x = 1200+15;
+                y = 0;
+                break;
+            case 3:
+                this.renderer.material.color = Color.yellow;
+                x = 15;
+                y = 400;
+                break;
+            case 4:
+                this.renderer.material.color = Color.green;
+                x = 1200+15;
+                y = 400;
+                break;
+        }
+    
+    }
+   
 	// Update is called once per frame
 	void FixedUpdate () {
 
@@ -27,16 +59,23 @@ public class Player1Controller : MonoBehaviour {
         {
             geom.shoot();
         }
-        this.transform.position += new Vector3(Input.GetAxis("LeftStick" + player + "X"), -Input.GetAxis("LeftStick" + player + "Y") / 20.0f) * PlayerSpeed;
+        this.transform.position += new Vector3(Input.GetAxis("LeftStick" + player + "X")/20.0f, -Input.GetAxis("LeftStick" + player + "Y") / 20.0f) * PlayerSpeed;
        // this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(Input.GetAxis("RightStick" + player + "Y"), -Input.GetAxis("RightStick" + player + "X")) * Mathf.Rad2Deg));
         // shoot();
         // GenerateMesh(NumVerts);
 	}
 
+    void OnGUI()
+    {
+        GUI.Box(new Rect(x, y, 200, 300), "Player " + player);
+    }
+
+
 
 
     void OnCollisionEnter2D(Collision2D c)
     {
+       
         if (c.gameObject.tag == "P_SpeedBoost")
         {
             PlayerSpeed = 3.0f;
@@ -44,19 +83,17 @@ public class Player1Controller : MonoBehaviour {
 
             PickupTimer = 50;
             State = PlayerState.SpeedBoost;
+            GameObject.Destroy(c.gameObject);
         }
         if (c.gameObject.tag == "P_Chase")
         {
             PickupTimer = 50;
             State = PlayerState.Chase;
+            GameObject.Destroy(c.gameObject);
         }
-        if (c.gameObject.tag == "P_Cannon")
-        {
-            PickupTimer = 50;
-            State = PlayerState.Cannon;
-        }
+        
 
-        GameObject.Destroy(c.gameObject);
+      
     }
 
     void CannonMode()
@@ -109,4 +146,5 @@ public class Player1Controller : MonoBehaviour {
             ChaseMode();
         }
     }
+
 }

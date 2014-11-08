@@ -23,8 +23,11 @@ public class BulletController : MonoBehaviour
         CustomGeometry g = c.gameObject.GetComponent<CustomGeometry>();
         if (g != null)
         {
-            g.NumVerts--;
-            g.GenerateMesh(g.NumVerts);
+            if (g.NumVerts > 4)
+            {
+                g.NumVerts--;
+                g.GenerateMesh(g.NumVerts);
+            }
             CustomGeometry g2 = owner.GetComponent<CustomGeometry>();
             g2.NumVerts++;
             g2.GenerateMesh(g2.NumVerts);

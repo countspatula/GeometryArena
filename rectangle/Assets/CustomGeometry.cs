@@ -3,9 +3,10 @@ using System.Collections;
 
 public class CustomGeometry : MonoBehaviour {
 
-
+    public static float S_last_side;
+    public static float S_next_side;
     public float ShotCooldown = 0.0f;
-    public float SideSpawnCooldown = 30;
+    public float SideSpawnCooldown = 3;
      float lastSideSpawn;
     public float lastshot;
     public int NumVerts = 0;
@@ -22,7 +23,7 @@ public class CustomGeometry : MonoBehaviour {
                 GameObject go = (GameObject)Instantiate(bullet, this.transform.position, Quaternion.identity);
                 go.transform.forward = this.transform.rotation * filter.mesh.vertices[i];
                 go.GetComponent<BulletController>().owner = transform;
-
+                go.renderer.material = this.renderer.material;
             }
         }
         
@@ -39,16 +40,17 @@ public class CustomGeometry : MonoBehaviour {
         verts[0] = Vector3.zero;
         uvs[0] = new Vector2(0.5f, 0.5f);
         float angle = 360.0f / (float)(p_numVerts - 1);
-
+        float scale = 0.1f;//p_numVerts/20.0f
         for (int i = 1; i < p_numVerts; i++)
         {
-            verts[i] = Quaternion.AngleAxis(angle * (float)(i - 1), Vector3.back) * Vector3.up*(p_numVerts/20.0f);
+            
+            verts[i] = Quaternion.AngleAxis(angle * (float)(i - 1), Vector3.back) * Vector3.up * (scale);
             float normedHorizontal = (verts[i].x + 1.0f) * 0.5f;
             float normedVertical = (verts[i].y + 1.0f) * 0.5f;
             uvs[i] = new Vector2(normedHorizontal, normedVertical);
 
         }
-        this.GetComponent<CircleCollider2D>().radius = p_numVerts / 20.0f;
+        this.GetComponent<CircleCollider2D>().radius = scale;
         for (int i = 0; i + 2 < p_numVerts; i++)
         {
             int index = i * 3;
@@ -86,7 +88,7 @@ public class CustomGeometry : MonoBehaviour {
 	// Use this for initialization
     	void Start () {
             lastshot = Time.time;
-            lastSideSpawn = Time.time + SideSpawnCooldown;
+            lastSideSpawn = 0;
             filter = GetComponents<MeshFilter>()[0];
             collider = GetComponent<MeshCollider>();
             filter.mesh = new Mesh();
@@ -99,7 +101,10 @@ public class CustomGeometry : MonoBehaviour {
 	void FixedUpdate () {
         if (lastSideSpawn < Time.time)
         {
+            S_last_side = lastSideSpawn;
             lastSideSpawn = Time.time+ SideSpawnCooldown;
+
+            S_next_side = lastSideSpawn;
             NumVerts++;
             GenerateMesh(NumVerts);
 
