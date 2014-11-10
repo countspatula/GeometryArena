@@ -13,6 +13,10 @@ public class Player1Controller : MonoBehaviour {
     public float Zrot = 0.0f;
     public float PickupTimer = 0;
 
+    public int SpeedCount;
+    public int CannonCount;
+    public int ChaseCount;
+
     public enum PlayerState { Normal, SpeedBoost, Cannon, Chase };
 
     public PlayerState State = PlayerState.Normal;
@@ -57,6 +61,23 @@ public class Player1Controller : MonoBehaviour {
         if (!(State == PlayerState.Normal))
         {
             CountDown();
+        }
+        else 
+        {
+            if (CannonCount > 0 && Input.GetButtonDown("A" + player))
+            {
+                UsePickup(0);
+            }
+
+            if (SpeedCount > 0 && Input.GetButtonDown("B"  + player))
+            {
+                UsePickup(1);
+            }
+
+            if (ChaseCount > 0 && Input.GetButtonDown("Y" + player))
+            {
+                UsePickup(2);
+            }
         }
 
         if (Input.GetAxis("RightTrigger" + player) < -0.001f && (State == PlayerState.Normal))
@@ -110,6 +131,7 @@ public class Player1Controller : MonoBehaviour {
     {
         PlayerSpeed = 1.0f;
         geom.ShotCooldown = 0.5f;
+        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         State = PlayerState.Normal;
     }
 
@@ -122,6 +144,37 @@ public class Player1Controller : MonoBehaviour {
         if (State == PlayerState.Chase)
         {
             ChaseMode();
+        }
+    }
+
+    void UsePickup(int i)
+    {
+        CustomGeometry cg = geom;
+
+        if (cg != null)
+        {
+            if (i == 0)
+            {
+                cg.ShotCooldown = 0.0f;
+                PickupTimer = 50;
+                State = Player1Controller.PlayerState.Cannon;
+               
+            }
+            if (i == 1)
+            {
+                PlayerSpeed = (PlayerSpeed * 2);
+                cg.ShotCooldown = (cg.ShotCooldown * 0.5f);
+                PickupTimer = 50;
+                State = Player1Controller.PlayerState.SpeedBoost;
+            }
+            if (i == 2)
+            {
+                PlayerSpeed = (PlayerSpeed * 1.5f);
+                cg.ShotCooldown = 1000;
+                PickupTimer = 50;
+                State = Player1Controller.PlayerState.Chase;
+            }
+
         }
     }
 
