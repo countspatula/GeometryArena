@@ -41,7 +41,7 @@ public class PickupController : MonoBehaviour
             //Timer = Time.time + SpawnTime;
             Player1Controller p1c = c.gameObject.GetComponent<Player1Controller>();
             p1c.State = Player1Controller.PlayerState.Cannon;
-            p1c.PickupTimer = Time.time+ PickupTime;
+			p1c.PickupTimer = Time.time;//+ PickupTime;
             //p1c.State = Player1Controller.PlayerState.Cannon;
             //p1c.PickupTimer = PickupTime;
             this.renderer.enabled = false;
