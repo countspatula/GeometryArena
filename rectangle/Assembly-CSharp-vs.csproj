@@ -46,16 +46,20 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BulletController.cs" />
-     <Compile Include="Assets\CameraManager.cs" />
-     <Compile Include="Assets\Cannon_Pickup.cs" />
-     <Compile Include="Assets\CustomGeometry.cs" />
-     <Compile Include="Assets\GuiController.cs" />
-     <Compile Include="Assets\PickupController.cs" />
-     <Compile Include="Assets\Player1Controller.cs" />
-     <Compile Include="Assets\PlayerController.cs" />
-     <Compile Include="Assets\ShapeRenderer.cs" />
+     <Compile Include="Assets\DirtySceneLoader.cs" />
      <Compile Include="Assets\XInputTestCS.cs" />
+     <Compile Include="Assets\scripts\AppState.cs" />
+     <Compile Include="Assets\scripts\Bar.cs" />
+     <Compile Include="Assets\scripts\BulletController.cs" />
+     <Compile Include="Assets\scripts\CameraManager.cs" />
+     <Compile Include="Assets\scripts\Cannon_Pickup.cs" />
+     <Compile Include="Assets\scripts\CustomGeometry.cs" />
+     <Compile Include="Assets\scripts\GuiController.cs" />
+     <Compile Include="Assets\scripts\PickupController.cs" />
+     <Compile Include="Assets\scripts\Player1Controller.cs" />
+     <Compile Include="Assets\scripts\PlayerController.cs" />
+     <Compile Include="Assets\scripts\ShapeRenderer.cs" />
+     <Compile Include="Assets\scripts\singleton.cs" />
      <None Include="Assets\XInputDotNet\MITLicense.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
