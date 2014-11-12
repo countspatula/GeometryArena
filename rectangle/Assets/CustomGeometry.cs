@@ -12,7 +12,7 @@ public class CustomGeometry : MonoBehaviour {
     public float lastshot;
 
     public float size = 0.1f;
-    private int numVerts;
+    private int numVerts = 3;
 
     public int NumVerts
     {
@@ -22,13 +22,13 @@ public class CustomGeometry : MonoBehaviour {
             numVerts = value;
             if (numVerts < 4)
             {
-                numVerts = 8;
-                size -= 0.05f;
+                numVerts = 3;
+               //remove layer
             }
             if (numVerts > 8)
             {
-                numVerts = 4;
-                size += 0.05f;
+                numVerts = 8;
+                //add layer
 
             }
             GenerateMesh(numVerts);
@@ -102,18 +102,24 @@ public class CustomGeometry : MonoBehaviour {
             Player1Controller p1c = c.gameObject.GetComponent<Player1Controller>();
             if (p1c.State == Player1Controller.PlayerState.Chase)
             {
+                
                 CustomGeometry g = this.GetComponent<CustomGeometry>();
+                Player1Controller p1c2 = g.gameObject.GetComponent<Player1Controller>();
                 if (g != null)
                 {
                     if (g.NumVerts > 4)
                     {
                         g.NumVerts--;
+                        p1c2.DeathCount += 1;
                        
                     }
                     g.transform.position = g.spawners.transform.GetChild(Random.Range(0, g.spawners.transform.childCount)).position;
 
                     CustomGeometry g2 = c.gameObject.GetComponent<CustomGeometry>();
+                    
+
                     g2.NumVerts++;
+                    p1c.KillCount += 1;
                   
                 }
             }
