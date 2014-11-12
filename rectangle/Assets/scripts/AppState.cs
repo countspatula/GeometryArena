@@ -10,15 +10,24 @@ public class AppState : Singleton<AppState> {
 			_MAIN_MENU_SELECT,
 			_PLAYERS_SELECT,
 			_GAMESTATE
-			
 		}
 
-	public appState m_appState = appState._MAIN_MENU_SELECT;
+	public enum gameState
+	{
+		//unchosen = first time played
+		_UNCHOSEN,
+		_2_PLAYERGAME,
+		_3_PLAYERGAME,
+		_4_PLAYERGAME,
+		_GAMEOVER
+	}
+	public gameState g_gameState = gameState._UNCHOSEN;
+	public appState g_appState = appState._MAIN_MENU_SELECT;
 
 	void OnlevelWasLoaded(int level)
 	{
 		string debugMsg = "";
-		switch (m_appState) {
+		switch (g_appState) {
 				
 		case appState._GAMESTATE:
 			debugMsg = "_GAMESTATE";
