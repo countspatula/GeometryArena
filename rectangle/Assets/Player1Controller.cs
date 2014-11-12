@@ -6,8 +6,13 @@ public class Player1Controller : MonoBehaviour {
     Renderer mr;
     public int player = 0;
 
+    public float KillCount;
+    public float DeathCount;
+
     float x;
     float y;
+
+    public Texture t;
 
     public float PlayerSpeed = 1.0f;
     public float Zrot = 0.0f;
@@ -26,26 +31,27 @@ public class Player1Controller : MonoBehaviour {
     {
         geom = GetComponent<CustomGeometry>();
         mr = this.renderer;
+        this.renderer.material.SetTexture(0, t);
 
         switch (player)
         {
             case 1:
-                this.renderer.material.color = Color.blue;
+                
                 x = 15;
                 y = 0;
                 break;
             case 2:
-                this.renderer.material.color = Color.red;
+               
                 x = 1200+15;
                 y = 0;
                 break;
             case 3:
-                this.renderer.material.color = Color.yellow;
+                
                 x = 15;
                 y = 400;
                 break;
             case 4:
-                this.renderer.material.color = Color.green;
+                
                 x = 1200+15;
                 y = 400;
                 break;
@@ -62,25 +68,28 @@ public class Player1Controller : MonoBehaviour {
         {
             CountDown();
         }
-        else 
-        {
+
             if (CannonCount > 0 && Input.GetButtonDown("A" + player))
             {
+                CannonCount--;
+                Debug.Log("a pressed");
                 UsePickup(0);
             }
 
             if (SpeedCount > 0 && Input.GetButtonDown("B"  + player))
             {
+                SpeedCount--;
                 UsePickup(1);
             }
 
             if (ChaseCount > 0 && Input.GetButtonDown("Y" + player))
             {
+                ChaseCount--;
                 UsePickup(2);
             }
-        }
+        
 
-        if (Input.GetAxis("RightTrigger" + player) < -0.001f && (State == PlayerState.Normal))
+        if (Input.GetAxis("RightTrigger" + player) < -0.001f && !(State == PlayerState.Chase || State == PlayerState.Cannon))
         {
             geom.shoot();
         }
@@ -88,34 +97,43 @@ public class Player1Controller : MonoBehaviour {
        // this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(Input.GetAxis("RightStick" + player + "Y"), -Input.GetAxis("RightStick" + player + "X")) * Mathf.Rad2Deg));
         // shoot();
         // GenerateMesh(NumVerts);
+
+        
+
 	}
 
     void OnGUI()
     {
+        if (KillCount > 19)
+        {
+            GUI.Box(new Rect(600, 200, 200, 200), "PLAYER " + player + " WINS");
+        }
+
         GUI.Box(new Rect(x, y, 200, 300), "Player " + player);
-        GUI.TextField(new Rect(x + 20, y + 100, 100, 20), "Sides" + geom.NumVerts);
+
+        GUI.TextField(new Rect(x + 20, y + 100, 100, 20), "KILLS: " + KillCount);
+        GUI.TextField(new Rect(x + 20, y + 120, 100, 20), "DEATHS: " + DeathCount);
+        GUI.TextField(new Rect(x + 20, y + 140, 100, 20), "K/D: " + (KillCount/DeathCount));
+
+        GUI.TextField(new Rect(x + 20, y + 160, 100, 20), "Sides:" + geom.NumVerts);
+        GUI.TextField(new Rect(x + 20, y + 200, 100, 20), "Pick-ups");
+        GUI.TextField(new Rect(x + 20, y + 220, 100, 20), "Cannon: " + CannonCount);
+        GUI.TextField(new Rect(x + 20, y + 240, 100, 20), "Chase: " + ChaseCount);
+        GUI.TextField(new Rect(x + 20, y + 260, 100, 20), "Speed: " + SpeedCount);
     }
 
 
-
-
-    void OnCollisionEnter2D(Collision2D c)
-    {     
-
-      
-    }
-
-    void CannonMode()
+    private void CannonMode()
     {
         geom.shoot();
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Zrot));
         Zrot += 1.0f;
     }
 
-    void ChaseMode()
+    private void ChaseMode()
     {
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Zrot));
-        Zrot += 5.0f;
+        Zrot += 7.0f;
     }
 
     private void CountDown()
@@ -127,55 +145,50 @@ public class Player1Controller : MonoBehaviour {
        
     }
 
-    void ResetStats()
+    private void ResetStats()
     {
         PlayerSpeed = 1.0f;
         geom.ShotCooldown = 0.5f;
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        State = PlayerState.Normal;
+        this.State = PlayerState.Normal;
     }
 
     private void PickupCheck()
     {
-        if (State == PlayerState.Cannon)
+        if (this.State == PlayerState.Cannon)
         {
             CannonMode();
         }
-        if (State == PlayerState.Chase)
+        if (this.State == PlayerState.Chase)
         {
             ChaseMode();
         }
     }
 
-    void UsePickup(int i)
+    private void UsePickup(int i)
     {
-        CustomGeometry cg = geom;
 
-        if (cg != null)
-        {
             if (i == 0)
             {
-                cg.ShotCooldown = 0.0f;
-                PickupTimer = 50;
-                State = Player1Controller.PlayerState.Cannon;
+                geom.ShotCooldown = 0.0f;
+                PickupTimer =  Time.time + 5;
+                this.State = Player1Controller.PlayerState.Cannon;
                
             }
             if (i == 1)
             {
-                PlayerSpeed = (PlayerSpeed * 2);
-                cg.ShotCooldown = (cg.ShotCooldown * 0.5f);
-                PickupTimer = 50;
-                State = Player1Controller.PlayerState.SpeedBoost;
+                PlayerSpeed = (PlayerSpeed * 1.5f);
+                geom.ShotCooldown = 0.25f;
+                PickupTimer = Time.time + 5;
+                this.State = Player1Controller.PlayerState.SpeedBoost;
             }
             if (i == 2)
             {
-                PlayerSpeed = (PlayerSpeed * 1.5f);
-                cg.ShotCooldown = 1000;
-                PickupTimer = 50;
-                State = Player1Controller.PlayerState.Chase;
+                PlayerSpeed = (PlayerSpeed * 2.0f);
+                PickupTimer = Time.time + 5;
+                this.State = Player1Controller.PlayerState.Chase;
             }
 
         }
     }
 
-}

@@ -38,39 +38,25 @@ public class PickupController : MonoBehaviour
         if (cg != null)
         {
 
-            //Timer = Time.time + SpawnTime;
+            Timer = Time.time + SpawnTime;
             Player1Controller p1c = c.gameObject.GetComponent<Player1Controller>();
-            p1c.State = Player1Controller.PlayerState.Cannon;
-            p1c.PickupTimer = Time.time+ PickupTime;
-            //p1c.State = Player1Controller.PlayerState.Cannon;
-            //p1c.PickupTimer = PickupTime;
+ 
             this.renderer.enabled = false;
             this.collider2D.enabled = false;
 
             if (PickupType == Type.Cannon)
             {
                 p1c.CannonCount++;
-                //cg.ShotCooldown = 0.0f;
-                //p1c.State = Player1Controller.PlayerState.Cannon;
-                cg.ShotCooldown = 0.05f;
-                p1c.State = Player1Controller.PlayerState.Cannon;
+
             }
             if (PickupType == Type.SpeedBoost)
             {
                 p1c.SpeedCount++;
-                //p1c.PlayerSpeed = (p1c.PlayerSpeed * 2);
-                //cg.ShotCooldown = (cg.ShotCooldown * 0.5f);
-                //p1c.State = Player1Controller.PlayerState.SpeedBoost;
+
             }
             if (PickupType == Type.Chase)
             {
                 p1c.ChaseCount++;
-                p1c.PlayerSpeed = (p1c.PlayerSpeed * 2.0f);
-                //p1c.PlayerSpeed = (p1c.PlayerSpeed * 1.5f);
-                cg.ShotCooldown = 1000;
-                //cg.ShotCooldown = 1000;
-                //p1c.State = Player1Controller.PlayerState.Chase;
-                p1c.State = Player1Controller.PlayerState.Chase;
             }
 
         }

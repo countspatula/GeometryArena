@@ -25,7 +25,7 @@ public class Cannon_Pickup : MonoBehaviour {
         {
             
             SpawnTime = Time.time + 5;
-            c.gameObject.GetComponent<Player1Controller>().State = Player1Controller.PlayerState.Cannon;
+            //c.gameObject.GetComponent<Player1Controller>().State = Player1Controller.PlayerState.Cannon;
             c.gameObject.GetComponent<Player1Controller>().PickupTimer = 50;
             this.renderer.enabled = false;
             this.collider2D.enabled = false;
