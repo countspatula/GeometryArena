@@ -31,7 +31,7 @@ public class CustomGeometry : MonoBehaviour {
                 //add layer
 
             }
-            GenerateMesh(numVerts);
+            GenerateMesh(numVerts, size);
         }
     }
     
@@ -55,7 +55,7 @@ public class CustomGeometry : MonoBehaviour {
 
     }
 
-    public void GenerateMesh(int p_numVerts)
+    public void GenerateMesh(int p_numVerts, float scale)
     {
         filter.mesh = null;
       
@@ -65,7 +65,6 @@ public class CustomGeometry : MonoBehaviour {
         verts[0] = Vector3.zero;
         uvs[0] = new Vector2(0.5f, 0.5f);
         float angle = 360.0f / (float)(p_numVerts - 1);
-        float scale = size;
         for (int i = 1; i < p_numVerts; i++)
         {
             
@@ -146,7 +145,7 @@ public class CustomGeometry : MonoBehaviour {
             filter = GetComponents<MeshFilter>()[0];
             collider = GetComponent<MeshCollider>();
             filter.mesh = new Mesh();
-            GenerateMesh(NumVerts);
+            GenerateMesh(NumVerts, size);
            // collider.sharedMesh = filter.mesh;
             
 	}

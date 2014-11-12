@@ -170,7 +170,7 @@ public class Player1Controller : MonoBehaviour {
 
             if (i == 0)
             {
-                geom.ShotCooldown = 0.0f;
+                geom.ShotCooldown = 0.075f;
                 PickupTimer =  Time.time + 5;
                 this.State = Player1Controller.PlayerState.Cannon;
                
