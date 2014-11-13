@@ -13,7 +13,11 @@ public class MainMenuButton:MonoBehaviour{
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    if(    Input.GetButtonDown("AA"))
+        {
+            cam.GetComponent<Tweener>().target = Target;
+            cam.GetComponent<Tweener>().reached = false;
+        }
 	}
 
 
@@ -22,4 +26,6 @@ public class MainMenuButton:MonoBehaviour{
 		cam.GetComponent<Tweener>().target = Target;
 		cam.GetComponent<Tweener>().reached = false;
 	}
+
+
 }

@@ -23,25 +23,24 @@ public class DirtySceneLoader : MonoBehaviour {
 	void OnMouseDown()
 	{
 		string DebugMsg = "";
-		if (AppState.Instance.PlayerCount > 1) {
+        if (AppState.Instance.g_players.PlayerCount() > 1)
+        {
 
-			if(AppState.Instance.PlayerCount == 2)
+            if (AppState.Instance.g_players.PlayerCount() == 2)
 			{
-				AppState.Instance.g_gameState = AppState.gameState._2_PLAYER;
 				DebugMsg = "2Players";
 			}
-			if(AppState.Instance.PlayerCount == 3)
+            if (AppState.Instance.g_players.PlayerCount() == 3)
 			{
-				AppState.Instance.g_gameState = AppState.gameState._3_PLAYER;
 				DebugMsg = "3Players";
 			}
-			if(AppState.Instance.PlayerCount == 4)
+            if (AppState.Instance.g_players.PlayerCount() == 4)
 			{
-				AppState.Instance.g_gameState = AppState.gameState._4_PLAYER;
 				DebugMsg = "4Players";
 			}
 			Debug.Log ("load " + Scene.name);
 			Debug.Log(DebugMsg);
+            AppState.Instance.g_gameState = AppState.gameState._PLAYING;
 			Application.LoadLevel (Scene.name);
 			} 
 

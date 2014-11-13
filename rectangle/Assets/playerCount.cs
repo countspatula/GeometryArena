@@ -10,11 +10,11 @@ public class playerCount : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(AppState.Instance.PlayerCount < 2)
+		if(AppState.Instance.g_players.PlayerCount() < 2)
 		{
 			GetComponent<TextMesh> ().text = "NOT ENOUGH PLAYERS SCRUB";
 			return;
 		}
-		GetComponent<TextMesh> ().text = "Player Count " + AppState.Instance.PlayerCount;
+        GetComponent<TextMesh>().text = "Player Count " + AppState.Instance.g_players.PlayerCount();
 	}
 }
