@@ -10,15 +10,26 @@ public class AppState : Singleton<AppState> {
 			_MAIN_MENU_SELECT,
 			_PLAYERS_SELECT,
 			_GAMESTATE
-			
 		}
 
-	public appState m_appState = appState._MAIN_MENU_SELECT;
+	public enum gameState
+	{
+		//unchosen = first time played
+		_2_PLAYER,
+		_3_PLAYER,
+		_4_PLAYER,
+		_UNCHOSEN,
+		_GAMEOVER
+	}
+
+	public int PlayerCount = 0;
+	public gameState g_gameState = gameState._UNCHOSEN;
+	public appState g_appState = appState._MAIN_MENU_SELECT;
 
 	void OnlevelWasLoaded(int level)
 	{
 		string debugMsg = "";
-		switch (m_appState) {
+		switch (g_appState) {
 				
 		case appState._GAMESTATE:
 			debugMsg = "_GAMESTATE";
@@ -42,7 +53,7 @@ public class AppState : Singleton<AppState> {
 
 	// Use this for initialization
 	void Start () {
-	
+		PlayerCount = 0;
 	}
 	
 	// Update is called once per frame
