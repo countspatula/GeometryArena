@@ -8,6 +8,8 @@ public class Player1Controller : MonoBehaviour {
 
     public float KillCount;
     public float DeathCount;
+    public GameObject scoreText;
+    public GameObject winText;
 
     float x;
     float y;
@@ -57,12 +59,23 @@ public class Player1Controller : MonoBehaviour {
                 x = 1200+15;
                 y = 400;
                 break;
-        }
-    
+        }    
     }
    
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate ()
+    {
+        if(KillCount >= 20)
+        {
+            if (Input.GetButton("startAll"))
+            {
+                Application.LoadLevel(0);
+            }
+
+            winText.GetComponent<TextMesh>().text = "Player " + player + " Wins!";
+            winText.transform.GetChild(0).gameObject.SetActive(true);
+            
+        }
 
         PickupCheck();
 
@@ -104,10 +117,7 @@ public class Player1Controller : MonoBehaviour {
         this.transform.position += new Vector3(Input.GetAxis("LeftStick" + player + "X")/20.0f, -Input.GetAxis("LeftStick" + player + "Y") / 20.0f) * PlayerSpeed;
        // this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(Input.GetAxis("RightStick" + player + "Y"), -Input.GetAxis("RightStick" + player + "X")) * Mathf.Rad2Deg));
         // shoot();
-        // GenerateMesh(NumVerts);
-
-        
-
+        // GenerateMesh(NumVerts);      
 	}
 
     //void OnGUI()
