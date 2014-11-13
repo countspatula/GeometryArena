@@ -17,12 +17,14 @@ public class Player1Controller : MonoBehaviour {
     public float PlayerSpeed = 1.0f;
     public float Zrot = 0.0f;
     public float PickupTimer = 0;
+    public float SpawnTimer = 0;
+
 
     public int SpeedCount;
     public int CannonCount;
     public int ChaseCount;
 
-    public enum PlayerState { Normal, SpeedBoost, Cannon, Chase };
+    public enum PlayerState { Normal, SpeedBoost, Cannon, Chase, Invincible};
 
     public PlayerState State = PlayerState.Normal;
 
@@ -64,10 +66,16 @@ public class Player1Controller : MonoBehaviour {
 
         PickupCheck();
 
-        if (!(State == PlayerState.Normal))
+        if (!(State == PlayerState.Normal) && State != PlayerState.Invincible)
         {
             CountDown();
         }
+
+        if (State == PlayerState.Invincible)
+        {
+            SpawnCountDown();
+        }
+
 
             if (CannonCount > 0 && Input.GetButtonDown("A" + player))
             {
@@ -144,6 +152,20 @@ public class Player1Controller : MonoBehaviour {
         }
        
     }
+
+    private void SpawnCountDown()
+    {
+        if (SpawnTimer < Time.time)
+        {
+            gameObject.GetComponent<GhostFlash>().enabled = false;
+            this.State = PlayerState.Normal;
+        }
+        else
+        {
+            gameObject.GetComponent<GhostFlash>().enabled = true;
+        }
+    }
+
 
     private void ResetStats()
     {

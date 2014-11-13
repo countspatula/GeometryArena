@@ -24,6 +24,7 @@ public class BulletController : MonoBehaviour
         Player1Controller p1c = c.gameObject.GetComponent<Player1Controller>();
         if (g != null)
         {
+            if (p1c.State == Player1Controller.PlayerState.Invincible) return;
             if (g.NumVerts > 4)
             {
                 g.NumVerts--;
@@ -37,7 +38,9 @@ public class BulletController : MonoBehaviour
 
             p1c2.KillCount += 1;
             g2.NumVerts++;
-            
+
+            p1c.State = Player1Controller.PlayerState.Invincible;
+            p1c.SpawnTimer = Time.time + 3;
         }
         if (c.gameObject.GetComponent<BulletController>() == null) { 
         Destroy(gameObject);}
