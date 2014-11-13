@@ -11,7 +11,7 @@ public class CustomGeometry : MonoBehaviour {
     float lastSideSpawn;
     public float lastshot;
 
-    public float size = 0.1f;
+    public float size = 0.15f;
     private int numVerts = 3;
 
     public int NumVerts
@@ -134,7 +134,7 @@ public class CustomGeometry : MonoBehaviour {
            
             Destroy(c.transform.gameObject);
             transform.position = spawners.transform.GetChild(Random.Range(0, spawners.transform.childCount)).position;
-            Debug.Log("FRE");
+           // Debug.Log("FRE");
         }
 
     }

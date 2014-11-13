@@ -12,10 +12,10 @@ public class GuiController : MonoBehaviour {
 	void Update () {
 	
 	}
-    void OnGUI()
-    {
+    //void OnGUI()
+    //{
      
-        GUI.HorizontalSlider(new Rect(10, 10, 100, 10), Time.time, CustomGeometry.S_last_side, CustomGeometry.S_next_side);
-        Debug.Log("GUi");
-    }
+    //    GUI.HorizontalSlider(new Rect(10, 10, 100, 10), Time.time, CustomGeometry.S_last_side, CustomGeometry.S_next_side);
+    //    Debug.Log("GUi");
+    //}
 }

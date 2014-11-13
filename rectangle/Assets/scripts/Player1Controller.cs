@@ -72,7 +72,7 @@ public class Player1Controller : MonoBehaviour {
             if (CannonCount > 0 && Input.GetButtonDown("A" + player))
             {
                 CannonCount--;
-                Debug.Log("a pressed");
+                //Debug.Log("a pressed");
                 UsePickup(0);
             }
 
@@ -102,25 +102,25 @@ public class Player1Controller : MonoBehaviour {
 
 	}
 
-    void OnGUI()
-    {
-        if (KillCount > 19)
-        {
-            GUI.Box(new Rect(600, 200, 200, 200), "PLAYER " + player + " WINS");
-        }
+    //void OnGUI()
+    //{
+    //    if (KillCount > 19)
+    //    {
+    //        GUI.Box(new Rect(600, 200, 200, 200), "PLAYER " + player + " WINS");
+    //    }
 
-        GUI.Box(new Rect(x, y, 200, 300), "Player " + player);
+    //    GUI.Box(new Rect(x, y, 200, 300), "Player " + player);
 
-        GUI.TextField(new Rect(x + 20, y + 100, 100, 20), "KILLS: " + KillCount);
-        GUI.TextField(new Rect(x + 20, y + 120, 100, 20), "DEATHS: " + DeathCount);
-        GUI.TextField(new Rect(x + 20, y + 140, 100, 20), "K/D: " + (KillCount/DeathCount));
+    //    GUI.TextField(new Rect(x + 20, y + 100, 100, 20), "KILLS: " + KillCount);
+    //    GUI.TextField(new Rect(x + 20, y + 120, 100, 20), "DEATHS: " + DeathCount);
+    //    GUI.TextField(new Rect(x + 20, y + 140, 100, 20), "K/D: " + (KillCount/DeathCount));
 
-        GUI.TextField(new Rect(x + 20, y + 160, 100, 20), "Sides:" + geom.NumVerts);
-        GUI.TextField(new Rect(x + 20, y + 200, 100, 20), "Pick-ups");
-        GUI.TextField(new Rect(x + 20, y + 220, 100, 20), "Cannon: " + CannonCount);
-        GUI.TextField(new Rect(x + 20, y + 240, 100, 20), "Chase: " + ChaseCount);
-        GUI.TextField(new Rect(x + 20, y + 260, 100, 20), "Speed: " + SpeedCount);
-    }
+    //    GUI.TextField(new Rect(x + 20, y + 160, 100, 20), "Sides:" + geom.NumVerts);
+    //    GUI.TextField(new Rect(x + 20, y + 200, 100, 20), "Pick-ups");
+    //    GUI.TextField(new Rect(x + 20, y + 220, 100, 20), "Cannon: " + CannonCount);
+    //    GUI.TextField(new Rect(x + 20, y + 240, 100, 20), "Chase: " + ChaseCount);
+    //    GUI.TextField(new Rect(x + 20, y + 260, 100, 20), "Speed: " + SpeedCount);
+    //}
 
 
     private void CannonMode()
