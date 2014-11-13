@@ -8,7 +8,7 @@ public class DirtySceneLoader : MonoBehaviour {
 
 	//please only put scenes in this :(
 	public Object Scene;
-
+	public TextMesh DebugMSG;
 	
 	// Use this for initialization
 	void Start () {
@@ -22,7 +22,28 @@ public class DirtySceneLoader : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		Debug.Log ("load " + Scene.name);
-		Application.LoadLevel(Scene.name);
+		string DebugMsg = "";
+		if (AppState.Instance.PlayerCount > 1) {
+
+			if(AppState.Instance.PlayerCount == 2)
+			{
+				AppState.Instance.g_gameState = AppState.gameState._2_PLAYER;
+				DebugMsg = "2Players";
+			}
+			if(AppState.Instance.PlayerCount == 3)
+			{
+				AppState.Instance.g_gameState = AppState.gameState._3_PLAYER;
+				DebugMsg = "3Players";
+			}
+			if(AppState.Instance.PlayerCount == 4)
+			{
+				AppState.Instance.g_gameState = AppState.gameState._4_PLAYER;
+				DebugMsg = "4Players";
+			}
+			Debug.Log ("load " + Scene.name);
+			Debug.Log(DebugMsg);
+			Application.LoadLevel (Scene.name);
+			} 
+
 	}
 }

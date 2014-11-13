@@ -15,12 +15,14 @@ public class AppState : Singleton<AppState> {
 	public enum gameState
 	{
 		//unchosen = first time played
+		_2_PLAYER,
+		_3_PLAYER,
+		_4_PLAYER,
 		_UNCHOSEN,
-		_2_PLAYERGAME,
-		_3_PLAYERGAME,
-		_4_PLAYERGAME,
 		_GAMEOVER
 	}
+
+	public int PlayerCount = 0;
 	public gameState g_gameState = gameState._UNCHOSEN;
 	public appState g_appState = appState._MAIN_MENU_SELECT;
 
@@ -51,7 +53,7 @@ public class AppState : Singleton<AppState> {
 
 	// Use this for initialization
 	void Start () {
-	
+		PlayerCount = 0;
 	}
 	
 	// Update is called once per frame

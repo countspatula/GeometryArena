@@ -9,7 +9,7 @@ public class Tweener : MonoBehaviour {
 	
 	public GameObject target;
     public float speed = 1.0f;
-    bool reached = false;
+    public bool reached = false;
     public float EndThreshold = 0.001f;
 	// Use this for initialization
 	void Start () {
@@ -41,7 +41,11 @@ public class Tweener : MonoBehaviour {
 	    }
 
 		//reached target event is now satisfied
-		ReachedTarget ();
+		if(ReachedTarget != null)
+		{
+			ReachedTarget();
+		}
+		//ReachedTarget ();
         return false;
     }
 	

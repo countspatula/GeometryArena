@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenuButton:MonoBehaviour{
-	public GameObject cam;
-	public GameObject Target;
-
+public class playerChoice : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -14,12 +11,5 @@ public class MainMenuButton:MonoBehaviour{
 	// Update is called once per frame
 	void Update () {
 	
-	}
-
-
-	public void OnMouseDown()
-	{
-		cam.GetComponent<Tweener>().target = Target;
-		cam.GetComponent<Tweener>().reached = false;
 	}
 }

@@ -47,7 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\DirtySceneLoader.cs" />
+     <Compile Include="Assets\PlayerIn.cs" />
      <Compile Include="Assets\XInputTestCS.cs" />
+     <Compile Include="Assets\playerChoice.cs" />
+     <Compile Include="Assets\playerCount.cs" />
      <Compile Include="Assets\scripts\AppState.cs" />
      <Compile Include="Assets\scripts\Bar.cs" />
      <Compile Include="Assets\scripts\BulletController.cs" />
