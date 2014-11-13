@@ -1,0 +1,9 @@
+diff a/rectangle/Assets/scripts/Player1Controller.cs b/rectangle/Assets/scripts/Player1Controller.cs	(rejected hunks)
+@@ -24,6 +24,7 @@
+     public int CannonCount;
+     public int ChaseCount;
+ 
++    public enum PlayerState { Normal, SpeedBoost, Cannon, Chase, Invincible };
+ 
+     public PlayerState State = PlayerState.Normal;
+ 

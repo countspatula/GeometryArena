@@ -15,6 +15,6 @@ public class playerCount : MonoBehaviour {
 			GetComponent<TextMesh> ().text = "NOT ENOUGH PLAYERS \n press A to join";
 			return;
 		}
-		GetComponent<TextMesh>().text =  AppState.Instance.g_players.PlayerCount() + " Players ready " + "\npress A for a " + AppState.Instance.g_players.PlayerCount() + " player game";
+		GetComponent<TextMesh>().text =  AppState.Instance.g_players.PlayerCount() + " Players ready " + "\npress START for a " + AppState.Instance.g_players.PlayerCount() + " player game";
 	}
 }

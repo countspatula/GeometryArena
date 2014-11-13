@@ -19,30 +19,33 @@ public class PlayerIn : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-//        if (Input.GetButtonDown(inPutKey))
-//        {
-//            if (pressed == false)
-//            {
-//                //AppState.Instance.g_players ++;
-//                AppState.Instance.g_players.SetActive(ChosePlayer);
-//                renderer.material.color = Color.blue;
-//                pressed = true;
-//
-//                //DebugActive();
-//                return;
-//            }
-//
-//            if (pressed == true)
-//            {
-//                //AppState.Instance.PlayerCount --;
-//                AppState.Instance.g_players.SetUnactive(ChosePlayer);
-//                renderer.material.color = Color.white;
-//                pressed = false;
-//
-//                //DebugInactive();
-//                return;
-//            }
-//        }
+        if (Input.GetButtonDown(inPutKey))
+        {
+            //active
+            if (pressed == false)
+            {
+                //AppState.Instance.g_players ++;
+                AppState.Instance.g_players.SetActive(ChosePlayer);
+                thisSpriteRender.sprite = activeSprite;
+                //renderer.material.color = Color.blue;
+                pressed = true;
+
+                //DebugActive();
+                return;
+            }
+            //unactive
+            if (pressed == true)
+            {
+                //AppState.Instance.PlayerCount --;
+                AppState.Instance.g_players.SetUnactive(ChosePlayer);
+                thisSpriteRender.sprite = unactiveSprite;
+                //renderer.material.color = Color.white;
+                pressed = false;
+
+                //DebugInactive();
+                return;
+            }
+        }
 	}
 
 	public void OnMouseDown()
