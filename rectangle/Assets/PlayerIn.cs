@@ -3,12 +3,17 @@ using System.Collections;
 
 public class PlayerIn : MonoBehaviour {
 	
-	private bool pressed = false;
+	public bool pressed = false;
     public AppState.playerActivater ChosePlayer = AppState.playerActivater.p1;
     public string inPutKey;
+	public Sprite activeSprite;
+	public Sprite unactiveSprite;
+	private SpriteRenderer thisSpriteRender;
+	private TextMesh thisTextMesh;
 	// Use this for initialization
 	void Start () {
-	
+		thisSpriteRender = GetComponent<SpriteRenderer> ();
+		thisSpriteRender.sprite = unactiveSprite;
 	}
 	
 	// Update is called once per frame
@@ -42,22 +47,25 @@ public class PlayerIn : MonoBehaviour {
 
 	public void OnMouseDown()
 	{
+		//active
 		if (pressed == false)
 		{
 			//AppState.Instance.g_players ++;
 			AppState.Instance.g_players.SetActive(ChosePlayer);
-			renderer.material.color = Color.blue;
+			thisSpriteRender.sprite = activeSprite;
+			//renderer.material.color = Color.blue;
 			pressed = true;
 			
 			//DebugActive();
 			return;
 		}
-		
+		//unactive
 		if (pressed == true)
 		{
 			//AppState.Instance.PlayerCount --;
 			AppState.Instance.g_players.SetUnactive(ChosePlayer);
-			renderer.material.color = Color.white;
+			thisSpriteRender.sprite = unactiveSprite;
+			//renderer.material.color = Color.white;
 			pressed = false;
 			
 			//DebugInactive();

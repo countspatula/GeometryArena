@@ -12,7 +12,7 @@ public class playerCount : MonoBehaviour {
 	void Update () {
 		if(AppState.Instance.g_players.PlayerCount() < 2)
 		{
-			GetComponent<TextMesh> ().text = "NOT ENOUGH PLAYERS SCRUB";
+			GetComponent<TextMesh> ().text = "NOT ENOUGH PLAYERS /n press A to join";
 			return;
 		}
         GetComponent<TextMesh>().text = "Player Count " + AppState.Instance.g_players.PlayerCount();
