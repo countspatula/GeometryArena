@@ -37,6 +37,7 @@ public class BulletController : MonoBehaviour
             Player1Controller p1c2 = owner.GetComponent<Player1Controller>();
 
             p1c2.KillCount += 1;
+            p1c2.scoreText.GetComponent<TextMesh>().text = "X " + p1c2.KillCount;
             g2.NumVerts++;
 
             p1c.State = Player1Controller.PlayerState.Invincible;
