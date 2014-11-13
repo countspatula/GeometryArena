@@ -97,7 +97,7 @@ public class Player1Controller : MonoBehaviour {
             }
         
 
-        if (Input.GetAxis("RightTrigger" + player) < -0.001f && !(State == PlayerState.Chase || State == PlayerState.Cannon))
+        if (Input.GetAxis("RightTrigger" + player) < -0.001f && !(State == PlayerState.Chase || State == PlayerState.Cannon || State == PlayerState.Invincible))
         {
             geom.shoot();
         }
