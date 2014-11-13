@@ -19,6 +19,7 @@ public class PlayerIn : MonoBehaviour {
 		if(pressed == false)
 		{
 			AppState.Instance.PlayerCount ++;
+			renderer.material.color = Color.blue;
 			pressed = true;
 			return;
 		}
@@ -26,6 +27,7 @@ public class PlayerIn : MonoBehaviour {
 		if(pressed == true)
 		{
 			AppState.Instance.PlayerCount --;
+			renderer.material.color = Color.white;
 			pressed = false;
 			return;
 		}
