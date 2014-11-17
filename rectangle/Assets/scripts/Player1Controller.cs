@@ -72,7 +72,7 @@ public class Player1Controller : MonoBehaviour {
                 AppState.Instance.g_gameState = AppState.gameState._GAMEOVER;
                 AppState.Instance.g_players.ClearActive();
                 winText.GetComponent<TextMesh>().color = scoreText.GetComponent<TextMesh>().color;
-                winText.GetComponent<TextMesh>().text = "Player " + player + " Wins!";
+                winText.GetComponent<TextMesh>().text = "Player " + player + " REKTS!";
                 winText.transform.GetChild(0).gameObject.SetActive(true);
             }
             if (Input.GetButton("startAll") && AppState.Instance.g_gameState == AppState.gameState._GAMEOVER)

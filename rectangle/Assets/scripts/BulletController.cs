@@ -3,7 +3,6 @@ using System.Collections;
 
 public class BulletController : MonoBehaviour
 {
-
     public float speed = 1.0f/40.0f;
     public Transform owner;
     // Use this for initialization
