@@ -36,13 +36,13 @@ public class PlayerIn : MonoBehaviour {
             //unactive
             if (pressed == true)
             {
-                //AppState.Instance.PlayerCount --;
-                AppState.Instance.g_players.SetUnactive(ChosePlayer);
-                thisSpriteRender.sprite = unactiveSprite;
-                //renderer.material.color = Color.white;
-                pressed = false;
+                ////AppState.Instance.PlayerCount --;
+                //AppState.Instance.g_players.SetUnactive(ChosePlayer);
+                //thisSpriteRender.sprite = unactiveSprite;
+                ////renderer.material.color = Color.white;
+                //pressed = false;
 
-                //DebugInactive();
+                ////DebugInactive();
                 return;
             }
         }

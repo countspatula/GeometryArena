@@ -92,6 +92,7 @@ public class Player1Controller : MonoBehaviour {
 
             if (CannonCount > 0 && Input.GetButtonDown("A" + player))
             {
+                if (State == PlayerState.Invincible) return;
                 CannonCount--;
                 //Debug.Log("a pressed");
                 UsePickup(0);
@@ -143,6 +144,7 @@ public class Player1Controller : MonoBehaviour {
 
     private void CannonMode()
     {
+       
         geom.shoot();
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Zrot));
         Zrot += 1.0f;
@@ -168,11 +170,12 @@ public class Player1Controller : MonoBehaviour {
         if (SpawnTimer < Time.time)
         {
             gameObject.GetComponent<GhostFlash>().enabled = false;
-            this.State = PlayerState.Normal;
+            ResetStats();
         }
         else
         {
             gameObject.GetComponent<GhostFlash>().enabled = true;
+          
         }
     }
 
