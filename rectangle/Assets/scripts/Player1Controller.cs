@@ -65,16 +65,22 @@ public class Player1Controller : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        if(KillCount >= 20)
+        if (KillCount >= AppState.Instance.WinCondition)
         {
-            if (Input.GetButton("startAll"))
+            if (AppState.Instance.g_gameState != AppState.gameState._GAMEOVER)
             {
+                AppState.Instance.g_gameState = AppState.gameState._GAMEOVER;
+                AppState.Instance.g_players.ClearActive();
+                winText.GetComponent<TextMesh>().color = scoreText.GetComponent<TextMesh>().color;
+                winText.GetComponent<TextMesh>().text = "Player " + player + " Wins!";
+                winText.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            if (Input.GetButton("startAll") && AppState.Instance.g_gameState == AppState.gameState._GAMEOVER)
+            {
+                AppState.Instance.g_gameState = AppState.gameState._STARTING;
                 Application.LoadLevel(0);
             }
-
-            winText.GetComponent<TextMesh>().text = "Player " + player + " Wins!";
-            winText.transform.GetChild(0).gameObject.SetActive(true);
-            
+    
         }
 
         PickupCheck();
@@ -88,13 +94,10 @@ public class Player1Controller : MonoBehaviour {
         {
             SpawnCountDown();
         }
-
-
             if (CannonCount > 0 && Input.GetButtonDown("A" + player))
             {
                 if (State == PlayerState.Invincible) return;
                 CannonCount--;
-                //Debug.Log("a pressed");
                 UsePickup(0);
             }
 
@@ -121,30 +124,9 @@ public class Player1Controller : MonoBehaviour {
         // GenerateMesh(NumVerts);      
 	}
 
-    //void OnGUI()
-    //{
-    //    if (KillCount > 19)
-    //    {
-    //        GUI.Box(new Rect(600, 200, 200, 200), "PLAYER " + player + " WINS");
-    //    }
-
-    //    GUI.Box(new Rect(x, y, 200, 300), "Player " + player);
-
-    //    GUI.TextField(new Rect(x + 20, y + 100, 100, 20), "KILLS: " + KillCount);
-    //    GUI.TextField(new Rect(x + 20, y + 120, 100, 20), "DEATHS: " + DeathCount);
-    //    GUI.TextField(new Rect(x + 20, y + 140, 100, 20), "K/D: " + (KillCount/DeathCount));
-
-    //    GUI.TextField(new Rect(x + 20, y + 160, 100, 20), "Sides:" + geom.NumVerts);
-    //    GUI.TextField(new Rect(x + 20, y + 200, 100, 20), "Pick-ups");
-    //    GUI.TextField(new Rect(x + 20, y + 220, 100, 20), "Cannon: " + CannonCount);
-    //    GUI.TextField(new Rect(x + 20, y + 240, 100, 20), "Chase: " + ChaseCount);
-    //    GUI.TextField(new Rect(x + 20, y + 260, 100, 20), "Speed: " + SpeedCount);
-    //}
-
 
     private void CannonMode()
     {
-       
         geom.shoot();
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Zrot));
         Zrot += 1.0f;
@@ -175,7 +157,6 @@ public class Player1Controller : MonoBehaviour {
         else
         {
             gameObject.GetComponent<GhostFlash>().enabled = true;
-          
         }
     }
 
