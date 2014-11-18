@@ -3,13 +3,8 @@ using System.Collections;
 
 public class PickupController : MonoBehaviour
 {
-
-    
-
     public enum Type {Cannon, SpeedBoost, Chase};
-
     public Type PickupType;
-
    // public int PickupTime;
 
     public float SpawnTime;

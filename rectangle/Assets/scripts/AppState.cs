@@ -20,11 +20,11 @@ public class AppState : Singleton<AppState> {
 	public enum gameState
 	{
 		//unchosen = first time played
-		_UNSTARTED,
+		_STARTING,
         _PLAYING,
 		_GAMEOVER
 	}
-
+    public int WinCondition = 5;
     public enum playerActivater
     {
         p1,
@@ -42,7 +42,6 @@ public class AppState : Singleton<AppState> {
     [System.Serializable]
     public struct Players
     {
-
         public void Construct(bool p_State)
         {
             p1Active = p_State;
@@ -127,7 +126,7 @@ public class AppState : Singleton<AppState> {
     public Players g_players;
  
 	//public int PlayerCount = 0;
-	public gameState g_gameState = gameState._UNSTARTED;
+	public gameState g_gameState = gameState._STARTING;
 	public appState g_appState = appState._MAIN_MENU_SELECT;
 
 	// Use this for initialization
